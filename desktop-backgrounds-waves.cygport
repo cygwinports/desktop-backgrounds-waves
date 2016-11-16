@@ -1,0 +1,28 @@
+NAME="desktop-backgrounds-waves"
+VERSION=0.1.2
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Waves desktop wallpapers"
+DESCRIPTION="The desktop-backgrounds-waves package contains artwork intended to
+be used as desktop background image."
+HOMEPAGE=
+md5sum=2bf9f5b973b9167a2fef35feb8ba0e74
+SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/desktop-backgrounds/waves-${VERSION}.tar.bz2/${md5sum}/waves-${VERSION}.tar.bz2"
+SRC_DIR="waves-${VERSION}"
+
+ARCH=noarch
+
+src_compile() { :; }
+
+src_install() {
+	cd ${S}
+	insinto /usr/share/backgrounds/waves
+	doins *.png waves.xml
+
+	insinto /usr/share/gnome-background-properties
+	doins desktop-backgrounds-waves.xml
+
+	dodir /usr/share/mate-background-properties
+	sed -e 's|gnome-wp|mate-wp|' desktop-backgrounds-waves.xml \
+	    > ${D}/usr/share/mate-background-properties/desktop-backgrounds-waves.xml
+}
